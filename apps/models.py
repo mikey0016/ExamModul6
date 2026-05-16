@@ -56,9 +56,9 @@ class User(AbstractUser):
 class Post(Model):
     title = CharField(max_length=255)
     content = CharField(max_length=255)
-    is_published = BooleanField(default=False)
-    views = IntegerField()
-    author_id = ForeignKey(User, on_delete = CASCADE, related_name='author_posts')
+    is_published = BooleanField(default=False, null=True,blank=True)
+    views = IntegerField(null=True,blank=True)
+    author_id = ForeignKey(User, on_delete = CASCADE, related_name='author_posts', null=True, blank=True)
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
 

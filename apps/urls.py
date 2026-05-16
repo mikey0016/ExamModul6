@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.urls import path
 
-from apps.views import dashboard_view, register_view, login_view, create_post_view
+from apps.views import dashboard_view, register_view, login_view, create_post_view,post_view
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -10,5 +10,6 @@ urlpatterns = [
     path('register/', register_view, name='register'),
     path('login/', login_view, name='login'),
     path('create_post/', create_post_view, name='create_post'),
+    path('post_details/', post_view, name='post_details'),
 ]
 

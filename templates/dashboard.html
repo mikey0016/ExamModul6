@@ -109,18 +109,22 @@
                     <h2><a href="{% url 'create_post' %}">Django bilan web sayt yaratish</a></h2>
                     <span class="badge badge-published">Nashr qilingan</span>
                 </div>
-                <p class="post-excerpt">
-                    Django — Python dasturlash tilida yozilgan kuchli web framework. Bu postda biz Django yordamida oddiy web sayt yaratishni ko'rib chiqamiz...
-                </p>
-                <div class="post-meta">
-                    <span class="author">ali_karimov</span>
-                    <span>📅 12.05.2025</span>
-                    <span>👁 128 ko'rilgan</span>
-                </div>
-                <div class="post-actions">
-                    <a href="{% url 'create_post' %}" class="btn-sm btn-edit">✏️ Tahrirlash</a>
-                    <button class="btn-sm btn-delete" onclick="return confirm('Rostdan o\'chirasizmi?')">🗑 O'chirish</button>
-                </div>
+                {% for post in posts %}
+                    <p class="post-excerpt">
+                        Django — Python dasturlash tilida yozilgan kuchli web framework. Bu postda biz Django yordamida oddiy web sayt yaratishni ko'rib chiqamiz...
+                    </p>
+                    <div class="post-meta">
+                        <span class="author">{{ user.first_name }}</span>
+                        <span>📅 12.05.2025</span>
+                        <span>👁 128 ko'rilgan</span>
+                    </div>
+                    <div class="post-actions">
+                        <a href="{% url 'post_details' %}" class="btn-sm btn-edit">✏️ Tahrirlash</a>
+                        <button class="btn-sm btn-delete" onclick="return confirm('Rostdan o\'chirasizmi?')"><a
+                                href="{% url 'dashboard' %}"></a>🗑 O'chirish</button>
+                    </div>
+                {% endfor %}
+
             </div>
 
         </div>

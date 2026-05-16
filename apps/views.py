@@ -10,7 +10,7 @@ from apps.models import User, Post
 
 # Create your views here.
 
-@login_required(login_url='login')
+@login_required()
 def dashboard_view(request):
     posts = Post.objects.all()
     post_count = 0
@@ -54,12 +54,21 @@ def create_post_view(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         content = request.POST.get('content')
-        is_published = request.POST.get('is_published')
-        views = request.POST.get('views')
-        author_id = request.POST.get('author_id')
-        Post.objects.create(title=title, content=content, is_published=is_published, views=views,author_id=author_id)
-        return redirect('dashboard')
+
+        Post.objects.create(title=title, content=content)
+        return redirect('create_post')
     else:
         posts = Post.objects.filter(is_published=False)
         context = {'posts': posts}
         return render(request, 'create_post.html', context)
+
+def post_view(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        Post.objects.update(title=title, content=content)
+        return redirect('dashboard')
+    else:
+        posts = Post.objects.all()
+        context = {'posts': posts}
+        return render(request, 'post_detail.html', context)
