@@ -99,7 +99,17 @@
 <nav>
     <a href="index.html" class="nav-brand">Mini<span>Blog</span></a>
     <div class="nav-links">
-        <span class="nav-user">Salom, <strong>{{ user.first_name }}</strong></span>
+        <div class="header-top">
+            <div class="user-info">
+                <div class="avatar">👤</div>
+                <div>
+                    <p style="font-size: 12px; opacity: 0.8;">Salom,</p>
+                    <p style="font-weight: 700; font-size: 18px;">{{ user.first_name }}</p>
+                </div>
+            </div>
+            <div class="avatar">🔔</div>
+        </div>
+
         <a href="{% url 'dashboard' %}">Dashboard</a>
         <a href="{% url 'create_post' %}">+ Yangi Post</a>
         <a href="{% url 'login' %}" class="btn-nav">Chiqish</a>
@@ -107,13 +117,15 @@
 </nav>
 
 <div class="container">
-    <div class="page-header">
-        <h1>📝 Yangi post yozish</h1>
-    </div>
+
 
     <div class="post-form-card">
-        <form action="{% url 'create_post' %}" method="POST">
+        <form action="{% url 'create_post' %}" method="GET">
             {% csrf_token %}
+
+            <div class="page-header">
+                <h1>📝 Yangi post yozish</h1>
+            </div>
 
             <div class="form-group">
                 <label for="title">Sarlavha</label>

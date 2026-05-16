@@ -83,7 +83,7 @@
 <nav>
     <a href="index.html" class="nav-brand">Mini<span>Blog</span></a>
     <div class="nav-links">
-        <span class="nav-user">Salom,{{ user.first_name }}</span>
+        <p class="nav-user">Salom,{{ user.first_name }}</p>
         <a href="{% url 'dashboard' %}">Dashboard</a>
         <a href="{% url 'create_post' %}">+ Yangi Post</a>
         <a href="{% url 'login' %}" class="btn-nav">Chiqish</a>
@@ -96,7 +96,7 @@
         <div class="page-header">
             <div>
                 <h1>Barcha postlar</h1>
-                <p class="post-count">Jami: </p>
+                <p class="post-count">Jami: {{ post_count }} </p>
             </div>
             <a href="{% url 'create_post' %}" class="btn-primary">+ Yangi post</a>
         </div>

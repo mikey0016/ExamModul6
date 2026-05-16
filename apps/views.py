@@ -58,7 +58,7 @@ def create_post_view(request):
         views = request.POST.get('views')
         author_id = request.POST.get('author_id')
         Post.objects.create(title=title, content=content, is_published=is_published, views=views,author_id=author_id)
-        return redirect('create_post')
+        return redirect('dashboard')
     else:
         posts = Post.objects.filter(is_published=False)
         context = {'posts': posts}

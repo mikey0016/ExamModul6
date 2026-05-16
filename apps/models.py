@@ -58,14 +58,14 @@ class Post(Model):
     content = CharField(max_length=255)
     is_published = BooleanField(default=False)
     views = IntegerField()
-    author_id = ForeignKey(User, on_delete = CASCADE)
+    author_id = ForeignKey(User, on_delete = CASCADE, related_name='author_posts')
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
 
 class Comment(Model):
     content = CharField(max_length=255)
-    author_id = ForeignKey(User, on_delete = CASCADE)
-    post_id = ForeignKey(Post, on_delete = CASCADE)
+    author_id = ForeignKey(User, on_delete = CASCADE, related_name='author_comments')
+    post_id = ForeignKey(Post, on_delete = CASCADE, related_name='post')
     created_at = DateTimeField(auto_now_add=True)
 
 
