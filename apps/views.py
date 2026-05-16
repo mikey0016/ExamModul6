@@ -2,7 +2,7 @@ import save
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import render, redirect
 
 from apps.models import User, Post
@@ -12,11 +12,12 @@ from apps.models import User, Post
 
 @login_required(login_url='login')
 def dashboard_view(request):
-    if request.method == 'POST':
-        pass
-    else:
-
-        return render(request, 'dashboard.html')
+    posts = Post.objects.all()
+    post_count = 0
+    for post in posts:
+        post_count += post
+    context = {'posts': posts, 'post_count': post_count}
+    return render(request, 'dashboard.html', context)
 
 
 def register_view(request):
@@ -34,19 +35,18 @@ def register_view(request):
     else:
         return render(request, 'register.html')
 
-def login_view(request):
+def login_view (request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
         queryset = User.objects.filter(email=email)
         if queryset.exists():
-            user = queryset.first()
-            if user.check_password(password):
+            user =queryset.first()
+            if check_password(password , user.password):
                 login(request, user)
                 return redirect('dashboard')
-        else:
-            messages.error(request,"Bunday email mavjud emas!")
-            return render(request, 'login.html')
+            else:
+                return render(request, 'dashboard.html')
     else:
         return render(request, 'login.html')
 
@@ -57,10 +57,7 @@ def create_post_view(request):
         is_published = request.POST.get('is_published')
         views = request.POST.get('views')
         author_id = request.POST.get('author_id')
-        created_at = request.POST.get('created_at')
-        updated_at = request.POST.get('updated_at')
-        Post.objects.create(title=title, content=content, is_published=is_published, views=views,author_id=author_id, created_at=created_at,
-                            updated_at=updated_at)
+        Post.objects.create(title=title, content=content, is_published=is_published, views=views,author_id=author_id)
         return redirect('create_post')
     else:
         posts = Post.objects.filter(is_published=False)

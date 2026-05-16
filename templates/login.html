@@ -155,6 +155,8 @@
 
 <div class="auth-wrap">
     <div class="auth-card">
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
         <h1>Xush kelibsiz</h1>
         <p class="subtitle">Hisobingizga kiring</p>
 
@@ -164,12 +166,11 @@
             {% endfor %}
         {% endif %}
 
-        <form action="{% url 'login' %}" method="POST">
-            {% csrf_token %}
+
             <div class="form-group">
-                <label for="username">Foydalanuvchi nomi</label>
+                <label for="email">Email kiriting</label>
                 <input type="email"  name="email"
-                       placeholder="email@example.com" required autofocus>
+                       placeholder="email@example.com">
             </div>
             <div class="form-group">
                 <label for="password">Parol</label>
